@@ -1,0 +1,26 @@
+apiVersion: extensions/v1beta1
+kind: DaemonSet
+metadata:
+  name: sticky-ip
+spec:
+  template:
+    metadata:
+      labels:
+        app: sticky-ip
+    spec:
+      hostPID: true
+      containers:
+      - name: sticky-ip
+        image: "{{ .Values.stickyIP.image.name }}:{{ .Values.stickyIP.image.tag }}"
+        imagePullPolicy: {{ .Values.stickyIP.image.pullPolicy }}
+        command: ["python"]
+        args:
+{{ toYaml .Values.stickyIP.scriptArgs | indent 12 }}
+        resources:
+{{ toYaml .Values.stickyIP.resources | indent 12 }}
+      env:
+      - name: DO_SECRET_TOKEN
+        valueFrom:
+          secretKeyRef:
+            name: digitalocean-secrets
+            key: secret-token

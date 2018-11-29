@@ -1,0 +1,10 @@
+*.lock
+*/*.lock
+*.tgz
+**/*.tgz
+**/_partials.tpl
+**/_globals.tpl
+*~
+.*.swp
+.*sw?
+secrets*

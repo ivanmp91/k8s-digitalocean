@@ -1,0 +1,6 @@
+nginx-ingress:
+    controller:
+        hostNetwork: true
+        kind: DaemonSet	
+        service:
+            type: NodePort
