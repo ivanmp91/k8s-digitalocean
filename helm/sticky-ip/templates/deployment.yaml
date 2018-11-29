@@ -1,5 +1,5 @@
 apiVersion: extensions/v1beta1
-kind: DaemonSet
+kind: Deployment
 metadata:
   name: sticky-ip
 spec:
@@ -8,7 +8,6 @@ spec:
       labels:
         app: sticky-ip
     spec:
-      hostPID: true
       containers:
       - name: sticky-ip
         image: "{{ .Values.stickyIP.image.name }}:{{ .Values.stickyIP.image.tag }}"
