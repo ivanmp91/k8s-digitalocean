@@ -1,0 +1,43 @@
+apiVersion: apps/v1
+kind: StatefulSet
+metadata:
+  name: mysql-server
+spec:
+  selector:
+    matchLabels:
+      app: opentodo
+      tier: mysql
+  serviceName: mysql
+  replicas: {{ .Values.mysql.statefulset.replicaCount }}
+  template:
+    metadata:
+      labels:
+        app: opentodo
+        tier: mysql
+    spec:
+      terminationGracePeriodSeconds: 10
+      containers:
+      - name: mysql
+        image: "{{ .Values.mysql.image.name }}:{{ .Values.mysql.image.tag }}"
+        env:
+        - name: MYSQL_ROOT_PASSWORD
+          valueFrom:
+            secretKeyRef:
+              name: mysql-pass
+              key: password
+        ports:
+        - containerPort: {{ .Values.mysql.service.port }}
+          name: mysql
+        volumeMounts:
+        - name: mysql-vol
+          mountPath: /var/lib/mysql
+  volumeClaimTemplates:
+  - metadata:
+      name: mysql-vol
+    spec:
+      accessModes:
+      - ReadWriteOnce
+      resources:
+        requests:
+          storage: {{ .Values.mysql.storage.size }}
+      storageClassName: {{ .Values.mysql.storage.className }}

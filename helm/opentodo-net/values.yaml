@@ -1,0 +1,11 @@
+mysql:
+  statefulset:
+    replicaCount: 1
+  image:
+    name: mysql
+    tag: 8.0.13
+  service:
+    port: 3306
+  storage:
+    size: 2Gi
+    className: do-block-storage

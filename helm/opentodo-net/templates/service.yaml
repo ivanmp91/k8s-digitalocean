@@ -1,0 +1,16 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: mysql
+  labels:
+    app: opentodo
+    tier: mysql
+spec:
+  type: {{ .Values.mysql.service.type }}
+  ports:
+  - port: {{ .Values.mysql.service.port }}
+    name: mysql
+  clusterIP: None
+  selector:
+    app: opentodo
+    tier: mysql
