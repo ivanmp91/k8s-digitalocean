@@ -1,4 +1,4 @@
-apiVersion: extensions/v1beta1
+apiVersion: apps/v1
 kind: Deployment
 metadata:
   name: sticky-ip
@@ -17,9 +17,10 @@ spec:
 {{ toYaml .Values.stickyIP.scriptArgs | indent 12 }}
         resources:
 {{ toYaml .Values.stickyIP.resources | indent 12 }}
-      env:
-      - name: DO_SECRET_TOKEN
-        valueFrom:
-          secretKeyRef:
-            name: digitalocean-secrets
-            key: secret-token
+        env:
+        - name: DO_SECRET_TOKEN
+          valueFrom:
+            secretKeyRef:
+              name: digitalocean-secrets
+              key: secret-token
+      restartPolicy: Always
