@@ -9,3 +9,16 @@ mysql:
   storage:
     size: 2Gi
     className: do-block-storage
+
+nginx-php:
+  image:
+    name: ivanmp91/opentodo-nginx-php
+    tag: latest
+    pullPolicy: Always
+  resources:
+    limits:
+     cpu: 50m
+     memory: 256Mi
+    requests:
+     cpu: 5m
+     memory: 128Mi

@@ -5,13 +5,13 @@ import os
 from time import sleep
 
 def main():
-    secret_token=os.environ['DO_SECRET_TOKEN']
     parser = argparse.ArgumentParser(description='Digital Ocean auto assign floating ip to k8s worker droplet')
     parser.add_argument('--tag','-t' , type=str,
                     help='droplet tag where floating ip is assigned')
     parser.add_argument('--ip','-i', type=str,
                     help='Floating IP to assign')
     args = parser.parse_args()
+    secret_token=os.environ['DO_SECRET_TOKEN']
     assign_floating_ip(args.tag,args.ip,secret_token)
 
 def assign_floating_ip(droplet_tag,floating_ip,secret_token):
