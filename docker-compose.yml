@@ -1,0 +1,7 @@
+version: '3.6'
+services:
+  do-sticky-floating-ip:
+    build:
+      context: ./docker/sticky-floating-ip/
+      dockerfile: Dockerfile
+    image: ivanmp91/do-sticky-floating-ip:${VERSION:-latest}

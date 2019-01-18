@@ -1,0 +1,30 @@
+apiVersion: v1
+kind: Deployment
+metadata:
+  name: nginx-php-fpm
+spec:
+  selector:
+    matchLabels:
+      app: opentodo
+      tier: nginx-php
+  serviceName: nginx-php
+    spec:
+      containers:
+      - name: php-fpm
+        image: "{{ .Values.nginx-php.image.name }}:{{ .Values.nginx-php.image.tag }}"
+        imagePullPolicy: {{ .Values.nginx-php.image.pullPolicy }}
+        ports:
+          - name: http
+            containerPort: 80
+            protocol: TCP
+        livenessProbe:
+          httpGet:
+            path: /
+            port: http
+        readinessProbe:
+          httpGet:
+            path: /
+            port: http
+        resources:
+{{ toYaml .Values.nginx-php.resources | indent 10 }}
+      restartPolicy: Always
