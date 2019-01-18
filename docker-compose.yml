@@ -5,3 +5,9 @@ services:
       context: ./docker/sticky-floating-ip/
       dockerfile: Dockerfile
     image: ivanmp91/do-sticky-floating-ip:${VERSION:-latest}
+
+  opentodo-net:
+    build:
+      context: ./docker/opentodo-net/
+      dockerfile: Dockerfile
+    image: ivanmp91/opentodo-nginx-php
